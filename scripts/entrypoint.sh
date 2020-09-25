@@ -246,6 +246,13 @@ apply_eramon_customizations() {
     sed -i "/report.scheduler.mail.sender.username/c\report.scheduler.mail.sender.username=$SMTP_MAIL_USER" js.quartz.properties
     sed -i "/report.scheduler.mail.sender.password/c\report.scheduler.mail.sender.password=$SMTP_MAIL_PASSWORD" js.quartz.properties
     sed -i "/report.scheduler.mail.sender.from/c\report.scheduler.mail.sender.from=$SMTP_MAIL_FROM" js.quartz.properties
+
+    #adjusting config values to prevent death loop when using report templates
+    grep -q "net.sf.jasperreports.governor.max.pages.enabled" classes/jasperreports.properties
+    if [ $? -eq 1 ] ; then
+      echo "net.sf.jasperreports.governor.max.pages.enabled=true" >> classes/jasperreports.properties
+      echo "net.sf.jasperreports.governor.max.pages=10000" >> classes/jasperreports.properties
+    fi
 }
 
 echo "about to initialize deploy properties"
