@@ -19,4 +19,4 @@ cd -
 echo "Building jasperserver-pro container..."
 docker build --no-cache=true -t jasperserver-pro:7.5.1 .
 echo "Building jasperserver-pro-cmdline container..."
-docker build --no-cache=true -t jasperserver-pro-cmdline:7.5.0 -f Dockerfile-cmdline .
+docker build --no-cache=true -t jasperserver-pro-cmdline:7.5.1 -f Dockerfile-cmdline .
