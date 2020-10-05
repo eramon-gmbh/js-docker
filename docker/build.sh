@@ -4,8 +4,9 @@ set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
-JASPERSERVER_PRO_CMDLINE_IMAGE_NAME="jasperserver-pro-cmdline:7.5.1"
-JASPERSERVER_PRO_IMAGE_NAME="jasperserver-pro:7.5.1"
+# shellcheck source=docker/variables.sh
+source "${DIR}"/docker/variables.sh
+
 TIPCO_FILE="TIB_js-jrs_7.5.1_bin.zip"
 
 echo "Copy files ..."
@@ -15,7 +16,7 @@ cp "${DIR}/../js-docker-files/.jrsks" security/
 cp "${DIR}/../js-docker-files/.jrsksp" security/
 
 echo "Unzip TIPCO packages..."
-unzip -o -q "${TIPCO_FILE}" -d "${DIR}/resources/"
+unzip -o -q "${TIPCO_FILE}" -d "${DIR}"/resources/
 cd resources/jasperreports-server-pro-*-bin
 unzip -o -q jasperserver-pro.war -d jasperserver-pro
 cd -

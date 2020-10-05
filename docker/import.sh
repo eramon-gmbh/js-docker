@@ -4,8 +4,8 @@ set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
-JASPERSERVER_PRO_CMDLINE_IMAGE_NAME="jasperserver-pro-cmdline:7.5.1"
-JASPERSERVER_PRO_CMDLINE_CONTAINER_NAME="jasperserver-pro-cmdline"
+# shellcheck source=docker/variables.sh
+source "${DIR}"/docker/variables.sh
 
 docker run -d --env-file="${DIR}"/.env \
     --name "${JASPERSERVER_PRO_CMDLINE_CONTAINER_NAME}" \

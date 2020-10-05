@@ -8,11 +8,8 @@ if [ ! -f "${DIR}"/.env ]; then
     echo "Please provide .env file!"
 fi
 
-JASPERSERVER_PRO_CMDLINE_IMAGE_NAME="jasperserver-pro-cmdline:7.5.1"
-JASPERSERVER_PRO_CMDLINE_CONTAINER_NAME="jasperserver-pro-cmdline"
-
-JASPERSERVER_PRO_IMAGE_NAME="jasperserver-pro:7.5.1"
-JASPERSERVER_PRO_CONTAINER_NAME="jasperserver_pro"
+# shellcheck source=docker/variables.sh
+source "${DIR}"/docker/variables.sh
 
 echo "Run jasperserver pro cmdline image."
 docker run -d --env-file="${DIR}"/.env \
@@ -22,7 +19,7 @@ docker run -d --env-file="${DIR}"/.env \
 
 echo "Run jasperserver pro image."
 docker run -d --env-file="${DIR}"/.env \
-    --name=${JASPERSERVER_PRO_CONTAINER_NAME} \
+    --name="${JASPERSERVER_PRO_CONTAINER_NAME}" \
     -v "${DIR}"/hotfixes:/usr/local/share/jasperserver-pro/customization \
     -v "${DIR}"/output:/output \
     -p 3306 -p 8080:8080 "${JASPERSERVER_PRO_IMAGE_NAME}"

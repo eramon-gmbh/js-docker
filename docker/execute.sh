@@ -4,8 +4,8 @@ set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
-JASPERSERVER_PRO_CMDLINE_CONTAINER_NAME="jasperserver-pro-cmdline"
-JASPERSERVER_PRO_CONTAINER_NAME="jasperserver_pro"
+# shellcheck source=docker/variables.sh
+source "${DIR}"/docker/variables.sh
 
 echo "Stop and remove old containers."
 docker stop "${JASPERSERVER_PRO_CMDLINE_CONTAINER_NAME}" || true

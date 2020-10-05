@@ -4,8 +4,8 @@ set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
-JASPERSERVER_PRO_CMDLINE_IMAGE_NAME="jasperserver-pro-cmdline:7.5.1"
-JASPERSERVER_PRO_IMAGE_NAME="jasperserver-pro:7.5.1"
+# shellcheck source=docker/variables.sh
+source "${DIR}"/docker/variables.sh
 
 echo "Remove old images"
 docker rmi "${JASPERSERVER_PRO_CMDLINE_IMAGE_NAME}" || true
