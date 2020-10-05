@@ -4,19 +4,23 @@ set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )
 
+JASPERSERVER_PRO_CMDLINE_IMAGE_NAME="jasperserver-pro-cmdline:7.5.1"
+JASPERSERVER_PRO_IMAGE_NAME="jasperserver-pro:7.5.1"
+TIPCO_FILE="TIB_js-jrs_7.5.1_bin.zip"
+
 echo "Copy files ..."
-cp "${DIR}"/../js-docker-files/TIB_js-jrs_7.5.1_bin.zip "${DIR}"/
-cp "${DIR}"/../js-docker-files/jasperserver.license "${DIR}"/license/
-cp "${DIR}"/../js-docker-files/.jrsks security/
-cp "${DIR}"/../js-docker-files/.jrsksp  security/
+cp "${DIR}/../js-docker-files/${TIPCO_FILE}" "${DIR}"/
+cp "${DIR}/../js-docker-files/jasperserver.license" "${DIR}"/license/
+cp "${DIR}/../js-docker-files/.jrsks" security/
+cp "${DIR}/../js-docker-files/.jrsksp" security/
 
 echo "Unzip TIPCO packages..."
-unzip -o -q TIB_js-jrs_7.5.1_bin.zip -d "${DIR}"/resources/
+unzip -o -q "${TIPCO_FILE}" -d "${DIR}/resources/"
 cd resources/jasperreports-server-pro-*-bin
 unzip -o -q jasperserver-pro.war -d jasperserver-pro
 cd -
 
-echo "Building jasperserver-pro container..."
-docker build --no-cache=true -t jasperserver-pro:7.5.1 .
 echo "Building jasperserver-pro-cmdline container..."
-docker build --no-cache=true -t jasperserver-pro-cmdline:7.5.1 -f Dockerfile-cmdline .
+docker build --no-cache=true -t "${JASPERSERVER_PRO_CMDLINE_IMAGE_NAME}" -f Dockerfile-cmdline .
+echo "Building jasperserver-pro container..."
+docker build --no-cache=true -t "${JASPERSERVER_PRO_IMAGE_NAME}" .

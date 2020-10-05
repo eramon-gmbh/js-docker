@@ -12,6 +12,6 @@ docker rmi "${JASPERSERVER_PRO_CMDLINE_IMAGE_NAME}" || true
 docker rmi "${JASPERSERVER_PRO_IMAGE_NAME}" || true
 
 echo "Load jasperserver pro cmdline image."
-docker load < jasperserver-pro-cmdline-image.tar
+docker load < "${DIR}"/jasperserver-pro-cmdline-image.tar
 echo "Load jasperserver pro image."
 docker load < "${DIR}"/jasperserver-pro-image.tar
