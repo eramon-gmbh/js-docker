@@ -247,6 +247,10 @@ apply_eramon_customizations() {
     sed -i "/report.scheduler.mail.sender.password/c\report.scheduler.mail.sender.password=$SMTP_MAIL_PASSWORD" js.quartz.properties
     sed -i "/report.scheduler.mail.sender.from/c\report.scheduler.mail.sender.from=$SMTP_MAIL_FROM" js.quartz.properties
 
+    echo "fix 'save as template' when custom theme is in place => Ticket #29029"
+    cd $CATALINA_HOME/webapps/jasperserver-pro/WEB-INF
+    echo "domainTopic/saveAsTopic.css=themes/default/domainTopic/saveAsTopic.css" >> classes/themes/default.properties
+
     #adjusting config values to prevent death loop when using report templates
     grep -q "net.sf.jasperreports.governor.max.pages.enabled" classes/jasperreports.properties
     if [ $? -eq 1 ] ; then
